@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://042ipuue4h4a" path="res://art/Legacy-Fantasy - High Forest 2.3/Objects/branch/branch.png" id="1_u75pg"]
 
 [node name="Node2D" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-29, -10, -29, 9, -28, 7, -24, 2, -17, 1, -6, -1, -4, -2, -1, -2, 1, -1, 8, -1, 11, -2, 14, -2, 17, -1, 28, -7, 14, -9, 3, -9, -2, -9, -12, -7, -23, -7)

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://042ipuue4h4a" path="res://art/Legacy-Fantasy - High Forest 2.3/Objects/branch/branch.png" id="1_s7h1n"]
 
 [node name="Branch" type="StaticBody2D"]
+collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
