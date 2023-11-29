@@ -1,0 +1,37 @@
+extends Node
+
+class_name Damageable
+
+@onready var debug : Label = $debug
+@onready var can_take_damage : bool = true
+
+signal on_hit(node : Node, damage_taken : int, knockback_direction : Vector2)
+
+signal on_is_dead()
+
+
+@export var health : float  :
+	get:
+		return health
+	set(value):
+		health = value
+	
+func hit(damage : int, knockback_direction : Vector2, knockback_speed : float):
+	if can_take_damage:
+		health -= damage
+		health_changed(health, damage)
+		emit_signal("on_hit", self, damage, knockback_direction)
+		if(check_if_dead()):
+			emit_signal("on_is_dead")
+	if damage == 0:
+		print("yeah")
+		emit_signal("on_hit", self, damage, knockback_direction)
+			
+
+
+func check_if_dead():
+	return health <= 0.0
+
+func health_changed(health : float, damage : float):
+	SignalBus.emit_signal("on_health_changed", get_parent(), (health - damage) - health)
+		

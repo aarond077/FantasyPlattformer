@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwwr3mkr8pehy"]
+
+[ext_resource type="Texture2D" uid="uid://042ipuue4h4a" path="res://art/Legacy-Fantasy - High Forest 2.3/Objects/branch/branch.png" id="1_s7h1n"]
+
+[node name="Branch" type="StaticBody2D"]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-22, -5, -17.7311, -5.98513, -9, -8, -2, -8, 12, -4, 15, -4, 20, -5, 27, -5, 27, 8, 23, 3, 10, 3, -2, -1, -4, -2, -5, -2, -7, -1, -14, 1, -16, 3, -19, 3, -22, -1)
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s7h1n")
+region_enabled = true
+region_rect = Rect2(8.91793, 68.2696, 54.7279, 19.5939)

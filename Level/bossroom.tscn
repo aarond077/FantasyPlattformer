@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://n0yr150gukr"]
+
+[ext_resource type="PackedScene" uid="uid://cqr3ik1rrea7c" path="res://objects/enemy/Boss/Undead Excecutioner/SkelletonBoss.tscn" id="1_vybw3"]
+[ext_resource type="PackedScene" uid="uid://cb35mgsmmjgfb" path="res://Character/Player.tscn" id="2_3ahx1"]
+
+[node name="Bossroom" type="Node2D"]
+
+[node name="SkelletonBoss" parent="." instance=ExtResource("1_vybw3")]
+position = Vector2(539, 154)
+
+[node name="Player" parent="." instance=ExtResource("2_3ahx1")]
+position = Vector2(192, 184)
