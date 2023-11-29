@@ -33,9 +33,9 @@ func state_input(event : InputEvent):
 		
 
 func double_jump():
+	has_double_jumped = true
 	character.velocity.y = double_jump_velocity
 	animation_player.play(double_jump_animation)
-	has_double_jumped = true
 	
 func get_state_name():
 	return "Air"

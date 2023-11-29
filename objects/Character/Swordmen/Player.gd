@@ -29,6 +29,7 @@ func _physics_process(delta):
 	
 	if direction.x != 0 \
 		and state_machine.current_state.get_state_name() != "Dash" \
+	
 		and state_machine.current_state.get_state_name() != "HitState":			
 		velocity.x = direction.x * speed
 	elif state_machine.current_state.get_state_name() != "HitState" \

@@ -10,6 +10,9 @@ class_name PlayerAttackState
 #func enter():
 #	timer.start()
 
+func enter():
+	can_move = false
+
 func state_input(event : InputEvent):
 	if(event.is_action_pressed("attack")):
 		timer.start()
