@@ -8,6 +8,7 @@ class_name PlayerGroundState
 @onready var can_transition : bool = false
 @onready var can_dash : bool = true
 @onready var dash_state : PlayerDashState = $"../Dash"
+@onready var state_machine : FiniteStateMachine = $".."
 # Called when the node enters the scene tree for the first time.
 
 
@@ -28,15 +29,16 @@ func state_process(delta):
 	owner.direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		
 func state_input(event : InputEvent):
-	if(event.is_action_pressed("jump")):
-		jump()
-	elif(event.is_action_pressed("attack")):
-		attack()
-	elif(event.is_action_pressed("stomp")):
-		stomp()
-		
-	if(can_dash):
-		get_dash_direction(event)
+	if character.is_on_floor():
+		if(event.is_action_pressed("jump")):
+			jump()
+		elif(event.is_action_pressed("attack")):
+			attack()
+		elif(event.is_action_pressed("stomp")):
+			stomp()
+			
+		if(can_dash):
+			get_dash_direction(event)
 			
 #	if(Input.is_action_just_pressed("move_right") 
 #		or Input.is_action_just_pressed("move_left") 
