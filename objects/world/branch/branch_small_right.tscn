@@ -1,17 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://chqia3m2dx8qg"]
+[gd_scene load_steps=3 format=3 uid="uid://chqia3m2dx8qg"]
 
 [ext_resource type="Texture2D" uid="uid://042ipuue4h4a" path="res://art/Legacy-Fantasy - High Forest 2.3/Objects/branch/branch.png" id="1_ftcil"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vtf66"]
 
 [node name="Branch" type="StaticBody2D"]
 collision_layer = 8
 collision_mask = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-21, -9, -17, -6, -11, -6, -4, -7, 7, -7, 13, -5, 19, -5, 10, 0, 0, 0, -2, 1, -9, 1, -15, 3, -20, 8, -21, 9)
-one_way_collision = true
-metadata/_edit_group_ = true
+physics_material_override = SubResource("PhysicsMaterial_vtf66")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ftcil")
 region_enabled = true
 region_rect = Rect2(64.052, 33.4894, 44.0074, 21.583)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-11, -5, 8, -6, 18, -5, 9, 0, -11, 1, -21, 5, -21, -6)
+one_way_collision = true

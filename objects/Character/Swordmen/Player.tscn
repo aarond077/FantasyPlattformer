@@ -624,9 +624,10 @@ radius = 12.0
 height = 46.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hit_state")]
-position = Vector2(-40, 38)
+z_index = 1
+position = Vector2(-39, 13)
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
 script = ExtResource("1_y6vvj")
 hit_state = NodePath("FiniteStateMachine/HitState")
 
@@ -636,8 +637,8 @@ shape = SubResource("CapsuleShape2D_eyhu1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-4, 0)
-texture = ExtResource("5_d41pj")
-hframes = 4
+texture = ExtResource("4_x6dmg")
+hframes = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -646,7 +647,7 @@ libraries = {
 
 [node name="Damageable" type="Node" parent="."]
 script = ExtResource("10_152l4")
-health = 100.0
+health = 120.0
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("24_q8he5")
@@ -729,7 +730,6 @@ facing_left_position = Vector2(-23, 3)
 facing_right_position = Vector2(23, 3)
 
 [node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("player", "facing_shape")]
-visible = false
 position = Vector2(1, 10)
 collision_layer = 16
 collision_mask = 4
@@ -763,6 +763,8 @@ script = ExtResource("2_ekm2l")
 damageable = NodePath("../Damageable")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("sprite", "player")]
+position = Vector2(-260, -215)
+anchor_mode = 0
 zoom = Vector2(2, 2)
 process_callback = 0
 limit_smoothed = true

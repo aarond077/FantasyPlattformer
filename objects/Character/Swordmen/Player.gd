@@ -10,6 +10,7 @@ class_name Player
 @onready var state_machine : FiniteStateMachine = $FiniteStateMachine
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var damageable : Damageable = $Damageable
+@onready var health_bar : Control = $health_bar
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -40,6 +41,15 @@ func _physics_process(delta):
 	update_facing_direction()
 	
 
+func _process(delta):
+	update_health_bar()
+	
+func update_health_bar():
+	pass
+
+
+func get_health():
+	return damageable.health
 
 
 func update_facing_direction():

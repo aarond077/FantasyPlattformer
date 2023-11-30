@@ -19,7 +19,7 @@ func enter():
 func state_process(delta):
 	
 	if(!character.is_on_floor() and buffer_timer.is_stopped()):
-		get_parent().change_state("Air")
+		call_deferred("emit_signal", "interrupt_state", "Air")
 	elif owner.direction.x == 0 and owner.is_on_floor():
 		animation_player.play("idle")
 		#owner.velocity.x = move_toward(owner.velocity.x, 0, owner.speed)
@@ -62,12 +62,11 @@ func stomp():
 	get_parent().change_state("Stomp")
 
 func get_dash_direction(event : InputEvent):
-	if Input.is_action_pressed("shift") \
-		and event.is_action_pressed("move_left"): #dash left
-				dash(Vector2.LEFT)
-	elif(Input.is_action_pressed("shift") \
-		and event.is_action_pressed("move_right")): #dash right
-				dash(Vector2.RIGHT)
+	if Input.is_action_pressed("shift"):
+		if owner.direction.x > 0:
+			dash(Vector2.RIGHT)
+		elif owner.direction.x < 0:
+			dash(Vector2.LEFT)
 	
 func dash(dash_direction : Vector2):
 	can_dash = false

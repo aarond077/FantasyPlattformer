@@ -419,8 +419,8 @@ script = ExtResource("1_p7vcf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 6)
-texture = ExtResource("5_y8ui5")
-hframes = 4
+texture = ExtResource("1_ign43")
+hframes = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -486,7 +486,6 @@ one_shot = true
 script = ExtResource("16_lxn25")
 
 [node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("character")]
-visible = false
 collision_layer = 0
 collision_mask = 2
 monitoring = false
@@ -515,7 +514,6 @@ position = Vector2(2, 7)
 shape = SubResource("CapsuleShape2D_3lkyw")
 
 [node name="PlayerDetection" type="Area2D" parent="." node_paths=PackedStringArray("character", "facing_shape")]
-visible = false
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("15_rbrej")

@@ -1,7 +1,7 @@
 extends Area2D
 
 
-@export var damage : int = 10
+@export var damage : int = 5
 @export var bee : CharacterBody2D
 @export var facing_shape : FacingCollisionShape2D
 @export var knockback_speed : float
