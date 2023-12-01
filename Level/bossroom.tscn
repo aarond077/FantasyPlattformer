@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://n0yr150gukr"]
 
-[ext_resource type="PackedScene" uid="uid://cqr3ik1rrea7c" path="res://objects/enemy/Boss/Undead Excecutioner/SkelletonBoss.tscn" id="1_vybw3"]
-[ext_resource type="PackedScene" uid="uid://cb35mgsmmjgfb" path="res://Character/Player.tscn" id="2_3ahx1"]
+[ext_resource type="PackedScene" uid="uid://cqr3ik1rrea7c" path="res://entities/enemy/Boss/Undead Excecutioner/SkelletonBoss.tscn" id="1_vybw3"]
+[ext_resource type="PackedScene" uid="uid://cb35mgsmmjgfb" path="res://entities/Character/Swordmen/Player.tscn" id="2_3ahx1"]
 
 [node name="Bossroom" type="Node2D"]
 

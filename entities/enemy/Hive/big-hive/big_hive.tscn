@@ -1,0 +1,302 @@
+[gd_scene load_steps=19 format=3 uid="uid://bo5178bjvgro0"]
+
+[ext_resource type="Script" path="res://entities/enemy/Hive/hive.gd" id="1_gt1x3"]
+[ext_resource type="Texture2D" uid="uid://bhgep8d1k0s1f" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Big Hive/BigHive-Spritesheet.png" id="2_fc1y5"]
+[ext_resource type="Script" path="res://entities/Damageable.gd" id="3_kwbxm"]
+[ext_resource type="Script" path="res://entities/enemy/Hive/Spawner.gd" id="4_8olar"]
+[ext_resource type="Script" path="res://entities/enemy/Hive/Hang.gd" id="5_hi3mj"]
+[ext_resource type="Script" path="res://entities/enemy/Hive/SpawnBee.gd" id="6_hopaf"]
+[ext_resource type="PackedScene" uid="uid://bqewe5n5volqr" path="res://entities/enemy/bee/bee.tscn" id="7_jngj4"]
+[ext_resource type="Script" path="res://entities/enemy/Hive/Fall.gd" id="8_rkin0"]
+[ext_resource type="Script" path="res://entities/enemy/Hive/Burst.gd" id="9_fml05"]
+[ext_resource type="Script" path="res://entities/FiniteStateMachine.gd" id="10_sgx4j"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kikom"]
+radius = 11.0
+height = 36.0
+
+[sub_resource type="Animation" id="Animation_cw5mk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qpr45"]
+resource_name = "break"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_fc1y5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FiniteStateMachine/Break")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_bee"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pfam0"]
+resource_name = "fall"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_fc1y5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_8l5hk"]
+resource_name = "hang"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_fc1y5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q8urs"]
+_data = {
+"RESET": SubResource("Animation_cw5mk"),
+"break": SubResource("Animation_qpr45"),
+"fall": SubResource("Animation_pfam0"),
+"hang": SubResource("Animation_8l5hk")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ht7qe"]
+size = Vector2(425, 326)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rc6o5"]
+radius = 5.0
+
+[node name="BigHive" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_gt1x3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_kikom")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fc1y5")
+hframes = 4
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q8urs")
+}
+
+[node name="Damageable" type="Node" parent="."]
+script = ExtResource("3_kwbxm")
+
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource("4_8olar")
+spawn_limit = 2
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = ExtResource("10_sgx4j")
+
+[node name="Hang" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character", "sprite")]
+script = ExtResource("5_hi3mj")
+character = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/Hang"]
+wait_time = 8.0
+one_shot = true
+
+[node name="Spawn" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("spawner", "character", "sprite")]
+script = ExtResource("6_hopaf")
+bee_node = ExtResource("7_jngj4")
+spawner = NodePath("../../Spawner")
+character = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
+
+[node name="Fall" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character", "sprite")]
+script = ExtResource("8_rkin0")
+character = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
+
+[node name="Break" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character", "sprite")]
+script = ExtResource("9_fml05")
+bee_node = ExtResource("7_jngj4")
+spawn_amount_break = 3
+character = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2(0, 47)
+shape = SubResource("RectangleShape2D_ht7qe")
+
+[node name="BreakDetection" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakDetection"]
+position = Vector2(0, 15)
+shape = SubResource("CircleShape2D_rc6o5")
+
+[node name="debug" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="FiniteStateMachine/Break" method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="FiniteStateMachine/Hang/Timer" to="FiniteStateMachine/Hang" method="_on_timer_timeout"]
+[connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Hang" method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="FiniteStateMachine/Hang" method="_on_player_detection_body_exited"]
+[connection signal="body_entered" from="BreakDetection" to="FiniteStateMachine/Break" method="_on_break_detection_body_entered"]

@@ -21,10 +21,10 @@ func _ready():
 				child.connect("spawn_enemy", on_spawn_enemy)
 		
 func on_spawn_enemy(spawner : Node, enemy : Node, amount : int):
-	for spawn in range(amount):
-		spawn_matrix[return_index(spawner, spawners)].append(enemy)
-		get_parent().add_child(enemy)
-		print(get_parent().name)
+	print(amount)
+		#spawn_matrix[return_index(spawner, spawners)].append(enemy)
+	get_parent().add_child(enemy)
+		#print(get_parent().name)
 	
 			
 
