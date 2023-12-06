@@ -10,12 +10,14 @@ class_name PlayerGroundState
 @onready var dash_state : PlayerDashState = $"../Dash"
 @onready var state_machine : FiniteStateMachine = $".."
 @onready var has_jumped : bool = false
+@onready var air_state : State = $"../Air"
 # Called when the node enters the scene tree for the first time.
 
 
 
 func enter():
 	has_jumped = false
+	air_state.call_deferred("set_has_air_attacked", false)
 	pass
 
 func state_process(delta):
@@ -40,6 +42,8 @@ func state_input(event : InputEvent):
 			attack()
 		elif(event.is_action_pressed("stomp")):
 			stomp()
+		elif(event.is_action_pressed("move_down")):
+			character.position.y += 1
 			
 		if(can_dash):
 			get_dash_direction(event)

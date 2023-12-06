@@ -9,13 +9,16 @@ class_name PlayerAirState
 
 
 var has_double_jumped = false
+var has_air_attacked = false
 
 func enter():
-	pass
+	has_double_jumped = false
+	if(has_air_attacked):
+		animation_player.play("jump_middle")
 	#animation_player.play("jump_start")
 
 func exit():
-	has_double_jumped = false
+	pass#has_double_jumped = false
 	
 func state_process(delta):
 	if(character.is_on_floor()):
@@ -27,15 +30,28 @@ func state_process(delta):
 	owner.direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		
 func state_input(event : InputEvent):
-	if(event.is_action_pressed("jump") && !has_double_jumped):
+	if(event.is_action_pressed("jump") && 
+	not has_double_jumped && 
+	not has_air_attacked):
 		double_jump()
+	elif(event.is_action_pressed("attack") &&
+	not has_air_attacked):
+		air_attack()
 	
+
+func air_attack():
+		has_air_attacked = true
+		animation_player.play("attack_air_side1")
+		call_deferred("emit_signal", "interrupt_state", "Attack")
 		
 
 func double_jump():
 	has_double_jumped = true
 	character.velocity.y = double_jump_velocity
 	animation_player.play(double_jump_animation)
+	
+func set_has_air_attacked(value : bool):
+	has_air_attacked = value
 	
 func get_state_name():
 	return "Air"

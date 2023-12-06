@@ -26,8 +26,6 @@ func _ready():
 
 func _physics_process(delta):
 	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
 #	elif state_machine.current_state != hit_state:
 #		velocity.x = move_toward(velocity.x, 0, speed)
 	
@@ -40,6 +38,8 @@ func _physics_process(delta):
 		and state_machine.current_state.get_state_name() != "Dash":
 		velocity.x = move_toward(velocity.x, 0, speed)
 	if(state_machine.current_state.can_move):
+		if not is_on_floor():
+			velocity.y += gravity * delta
 		move_and_slide()
 	update_facing_direction()
 	
@@ -69,7 +69,7 @@ func on_damageable_is_dead():
 func on_wallslide_manager_wallslide():
 	if state_machine.current_state.get_state_name() == "Air":
 		print("wallslide")
-		#animation_player.play("wallslide")
+		animation_player.play("wallslide")
 		#state_machine.current_state.call_deferred("emit_signal", "interrupt_state", "Wallslide")
 
 func on_wallslide_manager_wallslide_end():
