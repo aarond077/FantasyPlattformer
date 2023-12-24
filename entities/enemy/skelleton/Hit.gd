@@ -20,7 +20,6 @@ func _ready():
 func _on_damageable_hit(node : Node, damage_amount : int, knockback_direction : Vector2):
 	if(damageable.health > 0):
 		character.velocity += knockback_speed * knockback_direction
-		print(character.name)
 		emit_signal("interrupt_state", "Hit")
 	else:
 		print("dead")

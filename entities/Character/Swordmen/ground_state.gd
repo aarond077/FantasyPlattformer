@@ -11,6 +11,10 @@ class_name PlayerGroundState
 @onready var state_machine : FiniteStateMachine = $".."
 @onready var has_jumped : bool = false
 @onready var air_state : State = $"../Air"
+@onready var attack1_sound : AudioStreamPlayer = $"../../SoundEffects/Sword/SwipeSound1"
+@onready var attack_air_sound1 : AudioStreamPlayer = $"../../SoundEffects/Sword/SwipeAirSound1"
+@onready var attack_air_sound2 : AudioStreamPlayer = $"../../SoundEffects/Sword/SwipeAirSound2"
+@onready var jump_sound : AudioStreamPlayer = $"../../SoundEffects/Jump/JumpSound"
 # Called when the node enters the scene tree for the first time.
 
 
@@ -40,8 +44,9 @@ func state_input(event : InputEvent):
 			jump()
 		elif(event.is_action_pressed("attack")):
 			attack()
-		elif(event.is_action_pressed("stomp")):
-			stomp()
+		elif(event.is_action_pressed("interact")):
+			print("interact")
+			interact()
 		elif(event.is_action_pressed("move_down")):
 			character.position.y += 1
 			
@@ -58,17 +63,19 @@ func state_input(event : InputEvent):
 			
 		
 func jump():
+	jump_sound.play()
 	animation_player.play("jump_start")
 	has_jumped = true
 	character.velocity.y = jump_velocity
 
 
 func attack():
+	attack1_sound.play()
 	animation_player.play("attack1")
 	get_parent().change_state("Attack")
 	
-func stomp():
-	get_parent().change_state("Stomp")
+func interact():
+	SignalBus.call_deferred("emit_signal", "player_interaction")
 
 func get_dash_direction(event : InputEvent):
 	if Input.is_action_pressed("shift"):

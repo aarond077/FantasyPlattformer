@@ -1,5 +1,6 @@
 extends Node
 
+class_name SpawnManager
 
 var spawners : Array[Node]
 var spawn_matrix = []

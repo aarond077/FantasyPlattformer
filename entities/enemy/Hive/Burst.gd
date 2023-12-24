@@ -19,8 +19,7 @@ func enter():
 func spawn_bee():
 	var bee = bee_node.instantiate()
 	bee.position = owner.position + Vector2(20, 0)
-	spawner.call_deferred("emit_signal", "spawn_enemy", owner, bee, spawn_amount_break)
-	#spawner.emit_signal("spawn_enemy", owner, bee, 1)
+	spawner.call_deferred("spawn", owner, bee, spawn_amount_break)
 
 func get_state_name():
 	return "Break"

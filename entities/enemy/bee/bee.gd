@@ -10,6 +10,7 @@ class_name bee
 @onready var direction : Vector2
 @onready var player : CharacterBody2D = get_parent().find_child("Player")
 @onready var debug : Label = $debug
+@onready var fly_sound : AudioStreamPlayer2D = $Soundeffects/FlySound
 
 signal facing_direction_changed(facing_right : bool)
 
@@ -19,8 +20,11 @@ signal spawn_limit_changed()
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	damageable.connect("on_is_dead", on_damageable_is_dead)
+	fly_sound.play()
 	
 func _physics_process(delta):
+	fly_sound.position = position
+	
 	debug.text = str(damageable.health)#state_machine.return_current_state().return_state_name()
 	# Add the gravity.
 #	if not is_on_floor():

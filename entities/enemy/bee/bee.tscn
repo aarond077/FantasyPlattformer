@@ -1,11 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://bqewe5n5volqr"]
+[gd_scene load_steps=23 format=3 uid="uid://bqewe5n5volqr"]
 
 [ext_resource type="Script" path="res://entities/enemy/bee/bee.gd" id="1_bl5bu"]
 [ext_resource type="Texture2D" uid="uid://bxjtsa6y522a5" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Hit/Hit-Sheet.png" id="2_ulvg4"]
 [ext_resource type="Texture2D" uid="uid://jn6nuser10wm" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Attack/Attack-Sheet.png" id="3_leuwb"]
 [ext_resource type="Texture2D" uid="uid://c5irc5y8rm6pi" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="4_br8ib"]
-[ext_resource type="Script" path="res://entities/Damageable.gd" id="5_e7c1h"]
-[ext_resource type="Script" path="res://entities/FiniteStateMachine.gd" id="6_637tb"]
+[ext_resource type="Script" path="res://entities/damageable.gd" id="5_e7c1h"]
+[ext_resource type="Script" path="res://entities/finite_state_machine.gd" id="6_637tb"]
 [ext_resource type="Script" path="res://entities/enemy/bee/fly_state.gd" id="7_31tgt"]
 [ext_resource type="Script" path="res://entities/enemy/bee/follow_state.gd" id="8_70n6g"]
 [ext_resource type="Script" path="res://entities/enemy/bee/attack_state.gd" id="9_3yded"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://entities/enemy/bee/Stich.gd" id="11_oymk3"]
 [ext_resource type="Script" path="res://entities/enemy/boar/FacingShape.gd" id="12_nsmxx"]
 [ext_resource type="Script" path="res://entities/enemy/bee/debug.gd" id="13_67ha7"]
+[ext_resource type="AudioStream" uid="uid://4m6ucy06lu3k" path="res://art/sound/soundeffects/bee/bee.mp3" id="14_verhl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dc66"]
 radius = 11.0
@@ -283,6 +284,12 @@ offset_right = 72.0
 offset_bottom = 16.0
 text = "de"
 script = ExtResource("13_67ha7")
+
+[node name="Soundeffects" type="Node" parent="."]
+
+[node name="FlySound" type="AudioStreamPlayer2D" parent="Soundeffects"]
+stream = ExtResource("14_verhl")
+volume_db = 10.0
 
 [connection signal="timeout" from="FiniteStateMachine/Fly/Timer" to="FiniteStateMachine/Fly" method="_on_timer_timeout"]
 [connection signal="timeout" from="FiniteStateMachine/Dead/Timer" to="FiniteStateMachine/Dead" method="_on_timer_timeout"]

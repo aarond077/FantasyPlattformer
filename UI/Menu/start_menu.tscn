@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://coawkcgr7nua4"]
+
+[ext_resource type="Script" path="res://UI/Menu/ResumeButton.gd" id="1_g46sa"]
+[ext_resource type="Script" path="res://UI/Menu/new_game_button.gd" id="2_hah12"]
+[ext_resource type="PackedScene" uid="uid://6u4ps8kvqx0j" path="res://scene_properties.tscn" id="3_hx1k6"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -40.0
+offset_right = 138.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "= GAME MENU ="
+
+[node name="ResumeButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+script = ExtResource("1_g46sa")
+
+[node name="NewGameButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+script = ExtResource("2_hah12")
+
+[node name="SceneProperties" parent="." instance=ExtResource("3_hx1k6")]
+
+[connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="Panel/VBoxContainer/ResumeButton" method="_on_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/NewGameButton" to="Panel/VBoxContainer/NewGameButton" method="_on_pressed"]

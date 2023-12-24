@@ -9,6 +9,7 @@ signal on_hit(node : Node, damage_taken : int, knockback_direction : Vector2)
 
 signal on_is_dead()
 
+@export var max_health : float
 
 @export var health : float  :
 	get:
@@ -22,6 +23,8 @@ func hit(damage : int, knockback_direction : Vector2, knockback_speed : float):
 		health_changed(health, damage)
 		emit_signal("on_hit", self, damage, knockback_direction)
 		if(check_if_dead()):
+			if not get_parent() is Player:
+				SceneLogic.dead_enemies.append(get_parent().name)
 			emit_signal("on_is_dead")
 	if damage == 0:
 		print("yeah")

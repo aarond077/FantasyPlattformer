@@ -15,3 +15,4 @@ func _physics_process(delta):
 	if state_machine.current_state.can_move:
 		velocity.y += gravity * delta
 		move_and_slide()
+

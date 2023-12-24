@@ -4,6 +4,7 @@ class_name Player
 
 @export var speed : float = 200.0
 @export var hit_state : State 
+@onready var camera_node : Camera2D = $"../Camera2D"
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var animation_tree : AnimationTree = $AnimationTree
@@ -11,18 +12,27 @@ class_name Player
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var damageable : Damageable = $Damageable
 @onready var health_bar : Control = $health_bar
-@onready var wallslide_manager : Node2D = $"../WallslideManager"
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction : Vector2 = Vector2.ZERO
+var password = "123456"
 
 signal facing_direction_changed(facing_right : bool)
 
+# Node is destroyed
+func _exit_tree() -> void:
+	SaveLoadModule.clear()
+
 func _ready():
+	
+	SignalBus.call_deferred("connect", "player_interaction_state", on_player_interaction_state)#interaction
+	
 	damageable.connect("on_is_dead", on_damageable_is_dead)
-	wallslide_manager.call_deferred("connect"	, "wallslide", on_wallslide_manager_wallslide)
-	wallslide_manager.call_deferred("connect", "wallslide_end", on_wallslide_manager_wallslide_end)
+	
+func _process(delta):
+	camera_node.set_deferred("position", position)
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -31,6 +41,10 @@ func _physics_process(delta):
 	
 	if direction.x != 0 \
 		and state_machine.current_state.get_state_name() != "Dash" \
+		
+		and state_machine.current_state.get_state_name() != "Stomp" \
+		
+		and state_machine.current_state.get_state_name() != "AirAttack" \
 	
 		and state_machine.current_state.get_state_name() != "HitState":			
 		velocity.x = direction.x * speed
@@ -44,13 +58,6 @@ func _physics_process(delta):
 	update_facing_direction()
 	
 
-func _process(delta):
-	update_health_bar()
-	
-func update_health_bar():
-	pass
-
-
 func get_health():
 	return damageable.health
 
@@ -62,16 +69,14 @@ func update_facing_direction():
 		sprite.flip_h = true
 	
 	emit_signal("facing_direction_changed", !sprite.flip_h)
+	
+
 
 func on_damageable_is_dead():
 	print("just died")
-
-func on_wallslide_manager_wallslide():
-	if state_machine.current_state.get_state_name() == "Air":
-		print("wallslide")
-		animation_player.play("wallslide")
-		#state_machine.current_state.call_deferred("emit_signal", "interrupt_state", "Wallslide")
-
-func on_wallslide_manager_wallslide_end():
-	print("whoopsie")
+	
+func on_player_interaction_state(player_state : String):
+	print(player_state)
+	state_machine.change_state(player_state)
+	
 	

@@ -10,6 +10,8 @@ class_name PlayerAttackState
 @export var attack_air_node : String = "attack_air_side2"
 
 @onready var air_state : State = $"../Air"
+@onready var sword_sound2 : AudioStreamPlayer = $"../../SoundEffects/Sword/SwipeSound2"
+@onready var attack_air_sound2 : AudioStreamPlayer = $"../../SoundEffects/Sword/SwipeAirSound2"
 
 @onready var timer : Timer = $Timer
 #func enter():
@@ -27,16 +29,10 @@ func _on_animation_player_animation_finished(anim_name):
 		if(timer.is_stopped()):
 			emit_signal("interrupt_state", "Ground")
 		else:
+			sword_sound2.play()
 			animation_player.play(attack2_node)
 	if(anim_name == attack2_name):
 		emit_signal("interrupt_state", "Ground")
-	if(anim_name == attack_air1_name):
-		if(timer.is_stopped()):
-			emit_signal("interrupt_state", "Air")
-		else:
-			animation_player.play("attack_air_side2")
-	if(anim_name == attack_air2_name):
-		emit_signal("interrupt_state", "Air")
 		
 	
 

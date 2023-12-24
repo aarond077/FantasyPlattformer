@@ -7,9 +7,17 @@ class_name PlayerAirState
 @export var double_jump_animation : String = "double_jump"
 @export var landing_animation : String = "landing"
 
+@onready var attack_air_sound1 : AudioStreamPlayer = $"../../SoundEffects/Sword/SwipeAirSound1"
+@onready var double_jump_sound1 : AudioStreamPlayer = $"../../SoundEffects/Jump/DoubleJumpSound"
+# Called when the node enters the scene tree for the first time.
+
 
 var has_double_jumped = false
 var has_air_attacked = false
+
+func ready():
+	SignalBus.call_deferred("connect", "wallslide_start", on_signal_bus_wallslide_start)
+	SignalBus.call_deferred("connect", "wallslide_end", on_signal_bus_wallslide_end)
 
 func enter():
 	has_double_jumped = false
@@ -41,12 +49,14 @@ func state_input(event : InputEvent):
 
 func air_attack():
 		has_air_attacked = true
+		attack_air_sound1.play()
 		animation_player.play("attack_air_side1")
-		call_deferred("emit_signal", "interrupt_state", "Attack")
+		call_deferred("emit_signal", "interrupt_state", "AirAttack")
 		
 
 func double_jump():
 	has_double_jumped = true
+	double_jump_sound1.play()
 	character.velocity.y = double_jump_velocity
 	animation_player.play(double_jump_animation)
 	
@@ -55,3 +65,9 @@ func set_has_air_attacked(value : bool):
 	
 func get_state_name():
 	return "Air"
+	
+func on_signal_bus_wallslide_start():
+	print("wallsi")
+	
+func on_signal_bus_wallslide_end():
+	pass

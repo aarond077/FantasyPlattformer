@@ -1,0 +1,156 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckly233q77osi"]
+
+[ext_resource type="Script" path="res://UI/PauseScreen/pause_screen.gd" id="1_2lome"]
+[ext_resource type="Script" path="res://UI/PauseScreen/screen_manager.gd" id="1_fmj0c"]
+[ext_resource type="Script" path="res://UI/PauseScreen/SaveButton.gd" id="2_covj1"]
+[ext_resource type="Script" path="res://UI/PauseScreen/load_button.gd" id="3_v6dbg"]
+[ext_resource type="Script" path="res://UI/PauseScreen/world_screen.gd" id="4_slrsf"]
+[ext_resource type="Script" path="res://UI/PauseScreen/travel_button.gd" id="5_64x8n"]
+[ext_resource type="Script" path="res://UI/PauseScreen/ExitButton.gd" id="5_fgdta"]
+
+[node name="ScreenManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fmj0c")
+
+[node name="PauseScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2lome")
+
+[node name="Panel" type="Panel" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 120.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "= PAUSE ="
+
+[node name="SaveButton" type="Button" parent="PauseScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+script = ExtResource("2_covj1")
+
+[node name="LoadButton" type="Button" parent="PauseScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Load"
+script = ExtResource("3_v6dbg")
+
+[node name="ResumeButton" type="Button" parent="PauseScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="WorldButton" type="Button" parent="PauseScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "World"
+
+[node name="ExitButton" type="Button" parent="PauseScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+script = ExtResource("5_fgdta")
+
+[node name="WorldScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_top = 58.0
+offset_right = -328.0
+offset_bottom = -143.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_slrsf")
+
+[node name="Panel" type="Panel" parent="WorldScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.775
+anchor_bottom = 0.706
+offset_left = 326.0
+offset_top = 209.0
+offset_right = 168.2
+offset_bottom = 141.512
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldScreen/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="WorldScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "=WORLD="
+
+[node name="Lichtung" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("5_64x8n")
+travel_scene = "Lichtung1"
+obelisk_position = Vector2(2005, 197)
+
+[node name="Dorf" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("5_64x8n")
+
+[node name="Wald" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("5_64x8n")
+
+[node name="TieferWald" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("5_64x8n")
+
+[node name="Bienennest" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("5_64x8n")
+
+[node name="Mine" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("5_64x8n")
+
+[node name="Exit" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="PauseScreen/Panel/VBoxContainer/SaveButton" to="PauseScreen/Panel/VBoxContainer/SaveButton" method="_on_pressed"]
+[connection signal="pressed" from="PauseScreen/Panel/VBoxContainer/LoadButton" to="PauseScreen/Panel/VBoxContainer/LoadButton" method="_on_pressed"]
+[connection signal="pressed" from="PauseScreen/Panel/VBoxContainer/WorldButton" to="." method="_on_world_button_pressed"]
+[connection signal="pressed" from="PauseScreen/Panel/VBoxContainer/ExitButton" to="PauseScreen/Panel/VBoxContainer/ExitButton" method="_on_pressed"]
+[connection signal="pressed" from="WorldScreen/Panel/VBoxContainer/Lichtung" to="WorldScreen/Panel/VBoxContainer/Lichtung" method="_on_pressed"]
+[connection signal="pressed" from="WorldScreen/Panel/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
