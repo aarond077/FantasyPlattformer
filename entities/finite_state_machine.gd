@@ -2,10 +2,15 @@ extends Node
 
 class_name FiniteStateMachine
 
+
+
 @onready var new_state : State
 @onready var init_state : String
 @onready var current_state : State
 @onready var previous_state : State
+
+@export var debug : Label
+
 var states : Array[State]
 
 
@@ -34,6 +39,8 @@ func change_state(state):
 	
 	previous_state = current_state
 	current_state = new_state
+	if debug != null:
+		debug.text = state
 
 	
 func transition_previous_state():

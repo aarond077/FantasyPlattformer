@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://coawkcgr7nua4"]
+[gd_scene load_steps=3 format=3 uid="uid://coawkcgr7nua4"]
 
 [ext_resource type="Script" path="res://UI/Menu/ResumeButton.gd" id="1_g46sa"]
 [ext_resource type="Script" path="res://UI/Menu/new_game_button.gd" id="2_hah12"]
-[ext_resource type="PackedScene" uid="uid://6u4ps8kvqx0j" path="res://scene_properties.tscn" id="3_hx1k6"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -47,8 +46,6 @@ script = ExtResource("1_g46sa")
 layout_mode = 2
 text = "New Game"
 script = ExtResource("2_hah12")
-
-[node name="SceneProperties" parent="." instance=ExtResource("3_hx1k6")]
 
 [connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="Panel/VBoxContainer/ResumeButton" method="_on_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/NewGameButton" to="Panel/VBoxContainer/NewGameButton" method="_on_pressed"]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwendh071iueq"]
+
+[ext_resource type="Script" path="res://objects/buildings/Inn/inn.gd" id="1_1pvy5"]
+[ext_resource type="Texture2D" uid="uid://dd28ylpcucv7c" path="res://art/Legacy-Fantasy - High Forest 2.3/buildings/inn/inn.png" id="2_2easw"]
+[ext_resource type="Script" path="res://interactable.gd" id="3_gbivw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t22po"]
+size = Vector2(39, 56)
+
+[node name="Inn" type="Node2D"]
+script = ExtResource("1_1pvy5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2easw")
+
+[node name="Interactable" type="Node" parent="."]
+script = ExtResource("3_gbivw")
+
+[node name="InteractionDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetection"]
+position = Vector2(-139.5, 89)
+shape = SubResource("RectangleShape2D_t22po")
+
+[connection signal="body_entered" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_entered"]
+[connection signal="body_exited" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_exited"]

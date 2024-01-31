@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7rsbe8gactgk"]
+
+[ext_resource type="Script" path="res://objects/buildings/Forge/forge.gd" id="1_tgs2o"]
+[ext_resource type="Script" path="res://interactable.gd" id="2_0tedn"]
+[ext_resource type="Texture2D" uid="uid://b1yqg8tjbhdat" path="res://art/Legacy-Fantasy - High Forest 2.3/buildings/forge/forge.png" id="3_1r3l7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63yb8"]
+size = Vector2(30, 44)
+
+[node name="Forge" type="Node2D"]
+script = ExtResource("1_tgs2o")
+
+[node name="Interactable" type="Node" parent="."]
+script = ExtResource("2_0tedn")
+
+[node name="InteractionDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetection"]
+z_index = 1
+position = Vector2(-80, 12)
+shape = SubResource("RectangleShape2D_63yb8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_1r3l7")
+
+[connection signal="body_entered" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_entered"]
+[connection signal="body_exited" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_exited"]

@@ -55,7 +55,8 @@ func _physics_process(delta):
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		move_and_slide()
-	update_facing_direction()
+	if state_machine.current_state.get_state_name() != "HitState" and direction.x != 0:
+		update_facing_direction()
 	
 
 func get_health():

@@ -10,8 +10,8 @@
 [ext_resource type="Script" path="res://entities/enemy/bee/follow_state.gd" id="8_70n6g"]
 [ext_resource type="Script" path="res://entities/enemy/bee/attack_state.gd" id="9_3yded"]
 [ext_resource type="Script" path="res://entities/enemy/bee/dead_state.gd" id="10_7xh8c"]
-[ext_resource type="Script" path="res://entities/enemy/bee/Stich.gd" id="11_oymk3"]
-[ext_resource type="Script" path="res://entities/enemy/boar/FacingShape.gd" id="12_nsmxx"]
+[ext_resource type="Script" path="res://entities/enemy/bee/stich.gd" id="11_dsh8r"]
+[ext_resource type="Script" path="res://entities/facing_collision.gd" id="12_krj2v"]
 [ext_resource type="Script" path="res://entities/enemy/bee/debug.gd" id="13_67ha7"]
 [ext_resource type="AudioStream" uid="uid://4m6ucy06lu3k" path="res://art/sound/soundeffects/bee/bee.mp3" id="14_verhl"]
 
@@ -194,7 +194,7 @@ _data = {
 "fly": SubResource("Animation_3jo7x")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rwh6b"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jotbs"]
 radius = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8nldn"]
@@ -210,7 +210,7 @@ visible = false
 shape = SubResource("CircleShape2D_4dc66")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ulvg4")
+texture = ExtResource("3_leuwb")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -220,6 +220,7 @@ libraries = {
 
 [node name="Damageable" type="Node" parent="."]
 script = ExtResource("5_e7c1h")
+max_health = 10.0
 health = 10.0
 
 [node name="FiniteStateMachine" type="Node" parent="."]
@@ -258,18 +259,20 @@ position = Vector2(94, 14)
 collision_layer = 0
 collision_mask = 2
 monitoring = false
-script = ExtResource("11_oymk3")
+script = ExtResource("11_dsh8r")
 bee = NodePath("..")
-facing_shape = NodePath("FacingCollisionShape2D")
+facing_shape = NodePath("FacingCollision")
+knockback_speed = 20.0
 
-[node name="FacingCollisionShape2D" type="CollisionShape2D" parent="Stich"]
-position = Vector2(-103, -2)
-shape = SubResource("CircleShape2D_rwh6b")
-script = ExtResource("12_nsmxx")
-facing_left_position = Vector2(-103, -2)
-facing_right_position = Vector2(-83, -2)
+[node name="FacingCollision" type="CollisionShape2D" parent="Stich"]
+position = Vector2(-87, -1)
+shape = SubResource("CircleShape2D_jotbs")
+script = ExtResource("12_krj2v")
+facing_left_position = Vector2(-104, -2)
+facing_right_position = Vector2(-87, -2)
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

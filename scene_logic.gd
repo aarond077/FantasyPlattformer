@@ -97,3 +97,4 @@ func _ready():
 	SaveLoadModule.initialize(game_state_file, password)
 	self.player_max_health = 120
 	self.player_health = 120
+	self.player_next_init_position = Vector2(94, 200)

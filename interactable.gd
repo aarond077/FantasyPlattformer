@@ -18,11 +18,11 @@ func _process(delta):
 	pass
 	
 func on_player_interaction():
-	print("helloooo")
 	if player_interaction:
 		SignalBus.call_deferred("emit_signal",
 	 	"player_interaction_state",
 		 player_interaction_name)
+		
 		call_deferred("emit_signal", 
 		"interaction_changed")
 
@@ -35,4 +35,6 @@ func _on_interaction_detection_body_entered(body):
 func _on_interaction_detection_body_exited(body):
 	player_interaction = false
 	SignalBus.call_deferred("emit_signal", "player_not_interact", player_interaction_name)
+
+
 

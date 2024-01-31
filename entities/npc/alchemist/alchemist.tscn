@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/npc/alchemist/alchemist.gd" id="1_2mkr0"]
 [ext_resource type="Texture2D" uid="uid://c52uwbjvuhpip" path="res://art/Legacy-Fantasy - High Forest 2.3/NPC/Alchemist/Idle/Idle.png" id="1_o4vdk"]
-[ext_resource type="Script" path="res://entities/FiniteStateMachine.gd" id="3_nt7vo"]
+[ext_resource type="Script" path="res://entities/finite_state_machine.gd" id="3_nt7vo"]
 [ext_resource type="Script" path="res://entities/npc/alchemist/Idle.gd" id="4_ayj7q"]
 
 [sub_resource type="Animation" id="Animation_oq1o1"]

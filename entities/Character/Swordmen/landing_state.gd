@@ -6,6 +6,7 @@ class_name PlayerLandingState
 @onready var landing_animation_name : String = "jump_end"
 
 func enter():
+	super.enter()
 	#can_move = false
 	can_transition = true
 	#animation_player.play("jump_end")

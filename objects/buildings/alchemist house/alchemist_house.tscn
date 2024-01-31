@@ -1,26 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtlddou7jticd"]
+[gd_scene load_steps=5 format=3 uid="uid://dtlddou7jticd"]
 
+[ext_resource type="Script" path="res://objects/buildings/alchemist house/alchemist_house.gd" id="1_1jj4y"]
 [ext_resource type="Texture2D" uid="uid://cag27a86ida8m" path="res://art/Legacy-Fantasy - High Forest 2.3/buildings/alchemist-house.png" id="1_818f3"]
+[ext_resource type="Script" path="res://interactable.gd" id="3_kuqpn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_84x4a"]
-size = Vector2(26, 53)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhpwm"]
+size = Vector2(28, 49)
 
-[node name="AlchemistHouse" type="RigidBody2D"]
-collision_mask = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
-polygon = PackedVector2Array(113, 178, 134, 157, 154, 156, 172, 171, 172, 193, 158, 207, 135, 206, 113, 191)
-one_way_collision = true
+[node name="AlchemistHouse" type="Node2D"]
+script = ExtResource("1_1jj4y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_818f3")
 
-[node name="DoorDetection" type="Area2D" parent="."]
+[node name="InteractionDetection" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDetection"]
-visible = false
-position = Vector2(-93, 183)
-shape = SubResource("RectangleShape2D_84x4a")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetection"]
+position = Vector2(-94, 183.5)
+shape = SubResource("RectangleShape2D_bhpwm")
+
+[node name="Interactable" type="Node" parent="."]
+script = ExtResource("3_kuqpn")
+player_interaction_name = "Ground"
+
+[connection signal="body_entered" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_entered"]
+[connection signal="body_exited" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_exited"]

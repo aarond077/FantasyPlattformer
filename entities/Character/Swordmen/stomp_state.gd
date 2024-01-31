@@ -7,10 +7,12 @@ extends State
 
 # Called when the node enters the scene tree for the first time.
 func enter():
+	super.enter()
 	shoe.set_deferred("monitoring", false)
 	animation_player.play("stomp")
 
 func exit():
+	super.exit()
 	shoe.set_deferred("monitoring", false)
 	
 func get_state_name():

@@ -10,7 +10,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cfbjl"]
 radius = 9.0
-height = 50.0
+height = 66.0
 
 [sub_resource type="Animation" id="Animation_ykl8x"]
 length = 0.001
@@ -193,15 +193,16 @@ _data = {
 }
 
 [node name="Smith" type="CharacterBody2D"]
+collision_layer = 32
 script = ExtResource("1_c0iex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-9, -2)
+position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_cfbjl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_omurw")
-hframes = 8
+texture = ExtResource("2_ikanf")
+hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -211,8 +212,9 @@ libraries = {
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("4_ttw8p")
 
-[node name="Idle" type="Node" parent="FiniteStateMachine"]
+[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("sprite")]
 script = ExtResource("5_jmn30")
+sprite = NodePath("../../Sprite2D")
 
 [node name="State2" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("6_ye0yb")

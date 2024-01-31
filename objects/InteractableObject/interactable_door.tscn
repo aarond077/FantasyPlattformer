@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6vly44ayuua0"]
+
+[ext_resource type="Script" path="res://objects/InteractableObject/interactable_door.gd" id="1_v1gmq"]
+[ext_resource type="Script" path="res://interactable.gd" id="2_yosin"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qylso"]
+size = Vector2(29, 56)
+
+[node name="InteractableDoor" type="Node2D"]
+script = ExtResource("1_v1gmq")
+
+[node name="InteractionDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetection"]
+shape = SubResource("RectangleShape2D_qylso")
+
+[node name="Interactable" type="Node" parent="."]
+script = ExtResource("2_yosin")
+player_interaction_name = "Ground"
+
+[connection signal="body_entered" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_entered"]
+[connection signal="body_exited" from="InteractionDetection" to="Interactable" method="_on_interaction_detection_body_exited"]

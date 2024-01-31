@@ -6,8 +6,9 @@ class_name HiveFallState
 func _ready():
 	damageable.call_deferred("connect", "on_hit", _on_damageable_hit)
 
-func _on_damageable_hit(node : Node, damage_taken : int, knockback_direction : Vector2):
+func _on_damageable_hit(node : Node, damage_taken : int, knockback_direction : Vector2, knockback_speed : float):
 	if(damage_taken == 0):
+		print("Fall must be initialized")
 		call_deferred("emit_signal", "interrupt_state", "Fall")
 
 

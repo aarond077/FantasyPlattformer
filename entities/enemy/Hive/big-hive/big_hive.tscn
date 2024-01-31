@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bo5178bjvgro0"]
+[gd_scene load_steps=21 format=3 uid="uid://bo5178bjvgro0"]
 
 [ext_resource type="Script" path="res://entities/enemy/Hive/hive.gd" id="1_gt1x3"]
 [ext_resource type="Texture2D" uid="uid://bhgep8d1k0s1f" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Big Hive/BigHive-Spritesheet.png" id="2_fc1y5"]
@@ -11,10 +11,9 @@
 [ext_resource type="Script" path="res://entities/enemy/Hive/Fall.gd" id="8_rkin0"]
 [ext_resource type="Script" path="res://entities/enemy/Hive/Burst.gd" id="9_fml05"]
 [ext_resource type="Script" path="res://interactable.gd" id="11_3wlgf"]
-[ext_resource type="Script" path="res://entities/enemy/Hive/big-hive/InteractionDetection.gd" id="12_4nnlw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kikom"]
-radius = 11.0
+radius = 15.0
 height = 36.0
 
 [sub_resource type="Animation" id="Animation_cw5mk"]
@@ -216,7 +215,7 @@ _data = {
 size = Vector2(425, 326)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc6o5"]
-radius = 5.0
+radius = 7.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jmes4"]
 size = Vector2(36, 32)
@@ -243,6 +242,8 @@ libraries = {
 
 [node name="Damageable" type="Node" parent="."]
 script = ExtResource("3_2x8et")
+max_health = 50.0
+health = 50.0
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("4_8olar")
@@ -289,11 +290,10 @@ position = Vector2(0, 47)
 shape = SubResource("RectangleShape2D_ht7qe")
 
 [node name="BreakDetection" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreakDetection"]
-position = Vector2(0, 15)
+position = Vector2(0, 14)
 shape = SubResource("CircleShape2D_rc6o5")
 
 [node name="debug" type="Label" parent="."]
@@ -305,9 +305,9 @@ script = ExtResource("11_3wlgf")
 player_interaction_name = "Stomp"
 
 [node name="InteractionDetection" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("12_4nnlw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetection"]
 position = Vector2(0, -15)

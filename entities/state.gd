@@ -38,5 +38,6 @@ func change_facing_direction():
 		sprite.flip_h = true
 	else:
 		sprite.flip_h = false
+		
 func get_state_name():
 	pass

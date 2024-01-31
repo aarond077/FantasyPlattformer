@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bfv2hwblv6mub"]
+[gd_scene load_steps=22 format=3 uid="uid://bfv2hwblv6mub"]
 
 [ext_resource type="Script" path="res://entities/enemy/Hive/hive.gd" id="1_40kc8"]
 [ext_resource type="Texture2D" uid="uid://cwd4vu22qx22q" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Small Hive/Small-Hive.png" id="2_elgke"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://entities/enemy/Hive/Burst.gd" id="8_cusa8"]
 [ext_resource type="Script" path="res://entities/enemy/Hive/Spawner.gd" id="9_ypltw"]
 [ext_resource type="Script" path="res://interactable.gd" id="11_y0lhw"]
-[ext_resource type="Script" path="res://entities/enemy/Hive/big-hive/InteractionDetection.gd" id="12_fo05o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qw83y"]
 radius = 7.0
@@ -311,7 +310,7 @@ _data = {
 size = Vector2(308.063, 192.063)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wwae4"]
-radius = 4.0
+radius = 5.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n52bg"]
 size = Vector2(20, 17)
@@ -334,6 +333,8 @@ shape = SubResource("CapsuleShape2D_qw83y")
 
 [node name="Damageable" type="Node" parent="."]
 script = ExtResource("3_aldjg")
+max_health = 30.0
+health = 30.0
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("4_w1118")
@@ -389,7 +390,7 @@ shape = SubResource("RectangleShape2D_njnpo")
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreakDetection"]
-position = Vector2(16, 23)
+position = Vector2(16, 22)
 shape = SubResource("CircleShape2D_wwae4")
 
 [node name="Interactable" type="Node" parent="."]
@@ -399,7 +400,6 @@ player_interaction_name = "Stomp"
 [node name="InteractionDetection" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("12_fo05o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetection"]
 position = Vector2(16, 2)

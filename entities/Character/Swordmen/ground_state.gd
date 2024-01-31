@@ -17,11 +17,13 @@ class_name PlayerGroundState
 @onready var jump_sound : AudioStreamPlayer = $"../../SoundEffects/Jump/JumpSound"
 # Called when the node enters the scene tree for the first time.
 
+@onready var shoe : Area2D = $"../../Shoe"
 
 
 func enter():
 	has_jumped = false
 	air_state.call_deferred("set_has_air_attacked", false)
+	shoe.monitoring = false
 	pass
 
 func state_process(delta):

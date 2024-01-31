@@ -10,13 +10,18 @@ func enter():
 	stich.monitoring = false
 	can_move = false
 	animation_player.play("attack")
+	
+func exit():
+	stich.monitoring = false
 
 func state_process(delta):
 	character.direction = player.position - character.position + Vector2(0, -18)
-
-func transition():
+	
 	if character.direction.length() > 16:
-		get_parent().change_state("Follow")
+		call_deferred("emit_signal", "interrupt_state", "Follow")
+	if player.get_health() <= 0:
+		call_deferred("emit_signal", "interrupt_state", "Fly")
+	
 
 func toggle_stich_monitoring():
 	stich.monitoring = not stich.monitoring

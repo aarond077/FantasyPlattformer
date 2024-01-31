@@ -21,10 +21,10 @@
 [ext_resource type="Script" path="res://entities/Character/Swordmen/stomp_state.gd" id="17_ijo7h"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/dash_state.gd" id="18_2rd5j"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/AirAttack.gd" id="18_hcpm7"]
-[ext_resource type="Script" path="res://entities/Character/Swordmen/dead_state.gd" id="19_w3gml"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/SwordRange.gd" id="20_cykul"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/FacingCollisionShape2D.gd" id="21_m6jmo"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/Sword.gd" id="22_bu0nk"]
+[ext_resource type="Script" path="res://entities/Character/Swordmen/dead.gd" id="22_q2j1x"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/Label.gd" id="23_scnv0"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/debugLabel.gd" id="24_3775h"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/Foot.gd" id="26_8jfqu"]
@@ -860,7 +860,7 @@ height = 46.0
 z_index = 1
 position = Vector2(-39, 13)
 collision_layer = 2
-collision_mask = 13
+collision_mask = 9
 script = ExtResource("1_e7u86")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -869,7 +869,7 @@ shape = SubResource("CapsuleShape2D_eyhu1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-4, 0)
-texture = ExtResource("2_1c557")
+texture = ExtResource("6_q2n7d")
 hframes = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -879,6 +879,8 @@ libraries = {
 
 [node name="Damageable" type="Node" parent="."]
 script = ExtResource("12_c0d11")
+max_health = 100.0
+health = 100.0
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("13_3vooc")
@@ -924,10 +926,8 @@ script = ExtResource("14_iimyd")
 character = NodePath("../..")
 sprite = NodePath("../../Sprite2D")
 
-[node name="HitState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("dead_state", "character", "sprite")]
+[node name="HitState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character", "sprite")]
 script = ExtResource("16_7wlwe")
-knockback_speed = 50.0
-dead_state = NodePath("../Dead")
 return_state_name = "Air"
 character = NodePath("../..")
 sprite = NodePath("../../Sprite2D")
@@ -944,9 +944,10 @@ script = ExtResource("18_2rd5j")
 character = NodePath("../..")
 sprite = NodePath("../../Sprite2D")
 
-[node name="Dead" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("sprite")]
-script = ExtResource("19_w3gml")
-sprite = NodePath("../../Sprite2D")
+[node name="Dead" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("hit_box", "character")]
+script = ExtResource("22_q2j1x")
+hit_box = NodePath("../../CollisionShape2D")
+character = NodePath("../..")
 
 [node name="SwordRange" type="StaticBody2D" parent="." node_paths=PackedStringArray("facing_shape", "player")]
 visible = false
@@ -973,7 +974,7 @@ monitoring = false
 script = ExtResource("22_bu0nk")
 player = NodePath("..")
 facing_shape = NodePath("CollisionShape2D")
-knockback_speed = 30.0
+knockback_speed = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
 position = Vector2(22, -13.5)
@@ -1001,9 +1002,9 @@ script = ExtResource("24_3775h")
 damageable = NodePath("../Damageable")
 
 [node name="Shoe" type="Area2D" parent="." node_paths=PackedStringArray("player", "facing_shape")]
-visible = false
 collision_layer = 0
 collision_mask = 4
+monitoring = false
 script = ExtResource("26_8jfqu")
 player = NodePath("..")
 facing_shape = NodePath("FacingCollisionShape")

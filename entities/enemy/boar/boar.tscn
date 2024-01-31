@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b3h84hsqrhdnw"]
+[gd_scene load_steps=28 format=3 uid="uid://b3h84hsqrhdnw"]
 
 [ext_resource type="Script" path="res://entities/enemy/boar/boar.gd" id="1_sr7yn"]
 [ext_resource type="Texture2D" uid="uid://b8kqndj05cghd" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Hit-Vanish/Hit-Sheet-White.png" id="2_tka82"]
@@ -6,15 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://dbjnrf6gejio6" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Idle/Idle-Sheet-White.png" id="4_24f4f"]
 [ext_resource type="Texture2D" uid="uid://dw7wsd8y68aig" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Run/Run-Sheet-White.png" id="5_lsh8m"]
 [ext_resource type="Texture2D" uid="uid://ropbljs46x5v" path="res://art/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-Sheet-White.png" id="6_hgnuv"]
-[ext_resource type="Script" path="res://objects/enemy/FiniteStateMachine.gd" id="7_sg55l"]
-[ext_resource type="Script" path="res://entities/enemy/boar/IdleState.gd" id="8_7xopr"]
-[ext_resource type="Script" path="res://entities/enemy/boar/WalkState.gd" id="9_nnay6"]
-[ext_resource type="Script" path="res://entities/enemy/boar/AttackState.gd" id="10_u7mti"]
-[ext_resource type="Script" path="res://entities/enemy/boar/DeadState.gd" id="11_j1oub"]
-[ext_resource type="Script" path="res://entities/enemy/hit_state.gd" id="12_ekbvp"]
-[ext_resource type="Script" path="res://entities/enemy/boar/PlayerDetection.gd" id="14_xaxhw"]
-[ext_resource type="Script" path="res://entities/enemy/boar/FacingCollisionShape2D.gd" id="15_t4ssu"]
-[ext_resource type="Script" path="res://entities/enemy/boar/Hitbox.gd" id="16_wy2se"]
+[ext_resource type="Script" path="res://entities/damageable.gd" id="7_xisdt"]
+[ext_resource type="Script" path="res://entities/finite_state_machine.gd" id="8_2kn6s"]
+[ext_resource type="Script" path="res://entities/enemy/boar/idle.gd" id="9_sd06e"]
+[ext_resource type="Script" path="res://entities/enemy/boar/walk.gd" id="10_mte3t"]
+[ext_resource type="Script" path="res://entities/enemy/boar/attack.gd" id="11_j51t1"]
+[ext_resource type="Script" path="res://entities/hit_state.gd" id="12_amnyq"]
+[ext_resource type="Script" path="res://entities/enemy/boar/dead_state.gd" id="14_87pt7"]
+[ext_resource type="Script" path="res://entities/enemy/boar/debug.gd" id="14_suj1s"]
+[ext_resource type="Script" path="res://entities/facing_player_detection.gd" id="14_vmuo2"]
+[ext_resource type="Script" path="res://entities/facing_collision.gd" id="15_c53pt"]
+[ext_resource type="Script" path="res://entities/weapon.gd" id="17_58clm"]
 
 [sub_resource type="Animation" id="Animation_yxuu8"]
 length = 0.001
@@ -306,141 +308,128 @@ _data = {
 "walk": SubResource("Animation_bvr8d")
 }
 
-[sub_resource type="GDScript" id="GDScript_ohfb6"]
-script/source = "extends Node
-
-class_name Damageable
-
-@onready var debug : Label = $debug
-@onready var can_take_damage : bool = true
-
-signal on_hit(node : Node, damage_taken : int, knockback_direction : Vector2)
-
-signal on_is_dead()
-
-
-@export var health : float  :
-	get:
-		return health
-	set(value):
-		health = value
-	
-func hit(damage : int, knockback_direction : Vector2, knockback_speed : float):
-	if can_take_damage:
-		health -= damage
-		health_changed(health, damage)
-	
-		if(check_if_dead()):
-			emit_signal(\"on_is_dead\")
-			
-
-
-func check_if_dead():
-	return health <= 0.0
-
-func health_changed(health : float, damage : float):
-	SignalBus.emit_signal(\"on_health_changed\", get_parent(), (health - damage) - health)
-		
-"
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jkjyg"]
-radius = 32.0
-height = 204.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1b2df"]
 radius = 13.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ntkl"]
+radius = 27.5
+height = 164.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3wpyw"]
+radius = 2.0
+height = 10.0
+
 [node name="boar_white" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 13
 script = ExtResource("1_sr7yn")
 
+[node name="Debug" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+offset_left = -23.0
+offset_top = -32.0
+offset_right = 26.0
+offset_bottom = -6.0
+text = "idle"
+script = ExtResource("14_suj1s")
+state_machine = NodePath("../FiniteStateMachine")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_tka82")
-hframes = 4
+texture = ExtResource("5_lsh8m")
+hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ads7n")
 }
 
-[node name="FiniteStateMachine" type="Node" parent="."]
-script = ExtResource("7_sg55l")
-
-[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character")]
-script = ExtResource("8_7xopr")
-character = NodePath("../..")
-
-[node name="Walk" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character")]
-script = ExtResource("9_nnay6")
-character = NodePath("../..")
-
-[node name="IdleTimer" type="Timer" parent="FiniteStateMachine/Walk"]
-wait_time = 6.0
-one_shot = true
-
-[node name="Attack" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character")]
-script = ExtResource("10_u7mti")
-character = NodePath("../..")
-
-[node name="Dead" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character")]
-script = ExtResource("11_j1oub")
-character = NodePath("../..")
-
-[node name="Hit" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("dead_state")]
-script = ExtResource("12_ekbvp")
-dead_state = NodePath("../Dead")
-
-[node name="Timer" type="Timer" parent="FiniteStateMachine/Hit"]
-wait_time = 0.5
-one_shot = true
-
 [node name="Damageable" type="Node" parent="."]
-script = SubResource("GDScript_ohfb6")
-health = 20.0
-
-[node name="PlayerDetection" type="Area2D" parent="." node_paths=PackedStringArray("facing_shape", "boar")]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("14_xaxhw")
-facing_shape = NodePath("CollisionShape2D")
-boar = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-position = Vector2(-100, -15)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_jkjyg")
-script = ExtResource("15_t4ssu")
-facing_left_position = Vector2(-100, -15)
-facing_right_position = Vector2(100, -15)
-
-[node name="Debug" type="Label" parent="."]
-offset_left = -23.0
-offset_top = -32.0
-offset_right = 26.0
-offset_bottom = -6.0
-text = "debug"
-
-[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("state_machine")]
-visible = false
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("16_wy2se")
-state_machine = NodePath("../FiniteStateMachine")
-knockback_speed = 350.0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
-position = Vector2(-1, 1)
-polygon = PackedVector2Array(-12, -1, -5, -7, 6, -5, 11, 3, 10, 10, 8, 14, 7, 15, 4, 15, 0, 11, -5, 15, -12, 15, -12, 12, -17, 9, -18, 3, -12, 3)
+script = ExtResource("7_xisdt")
+max_health = 30.0
+health = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-3, 4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1b2df")
 
-[connection signal="timeout" from="FiniteStateMachine/Walk/IdleTimer" to="FiniteStateMachine/Walk" method="_on_idle_timer_timeout"]
-[connection signal="timeout" from="FiniteStateMachine/Hit/Timer" to="FiniteStateMachine/Hit" method="_on_timer_timeout"]
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("debug")]
+script = ExtResource("8_2kn6s")
+debug = NodePath("../Debug")
+
+[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("damageable", "character")]
+script = ExtResource("9_sd06e")
+damageable = NodePath("../../Damageable")
+character = NodePath("../..")
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/Idle"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Walk" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("damageable", "character")]
+script = ExtResource("10_mte3t")
+damageable = NodePath("../../Damageable")
+character = NodePath("../..")
+
+[node name="TurnTimer" type="Timer" parent="FiniteStateMachine/Walk"]
+wait_time = 4.0
+one_shot = true
+
+[node name="Attack" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("damageable", "snout", "character")]
+script = ExtResource("11_j51t1")
+damageable = NodePath("../../Damageable")
+snout = NodePath("../../Snout")
+character = NodePath("../..")
+
+[node name="HitState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character", "sprite")]
+script = ExtResource("12_amnyq")
+return_state_name = "Attack"
+character = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/HitState"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Dead" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("character")]
+script = ExtResource("14_87pt7")
+character = NodePath("../..")
+
+[node name="PlayerDetection" type="Area2D" parent="." node_paths=PackedStringArray("character", "facing_shape")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("14_vmuo2")
+character = NodePath("..")
+facing_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2(-57, -10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2ntkl")
+script = ExtResource("15_c53pt")
+facing_left_position = Vector2(-67, 0)
+facing_right_position = Vector2(62, 0)
+
+[node name="Snout" type="Area2D" parent="." node_paths=PackedStringArray("character", "facing_shape")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("17_58clm")
+character = NodePath("..")
+facing_shape = NodePath("FacingCollision")
+damage = 20.0
+knockback_speed = 200.0
+
+[node name="FacingCollision" type="CollisionShape2D" parent="Snout"]
+position = Vector2(16, 5)
+shape = SubResource("CapsuleShape2D_3wpyw")
+script = ExtResource("15_c53pt")
+facing_left_position = Vector2(-18, 6)
+facing_right_position = Vector2(16, 6)
+
+[connection signal="timeout" from="FiniteStateMachine/Idle/Timer" to="FiniteStateMachine/Idle" method="_on_timer_timeout"]
+[connection signal="timeout" from="FiniteStateMachine/Walk/TurnTimer" to="FiniteStateMachine/Walk" method="_on_turn_timer_timeout"]
+[connection signal="timeout" from="FiniteStateMachine/HitState/Timer" to="FiniteStateMachine/HitState" method="_on_timer_timeout"]
 [connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Idle" method="_on_player_detection_body_entered"]
 [connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Walk" method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="FiniteStateMachine/Attack" method="_on_player_detection_body_exited"]
-[connection signal="body_entered" from="Hitbox" to="Hitbox" method="_on_body_entered"]
+[connection signal="body_entered" from="Snout" to="Snout" method="_on_body_entered"]

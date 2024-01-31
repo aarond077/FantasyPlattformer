@@ -19,9 +19,6 @@ func _ready():
 	SignalBus.call_deferred("connect", "player_not_interact", on_player_not_interact)
 	update_player_properties()
 	
-	for child in get_children():
-		print(child.name)
-	
 	update_music(owner.music_name, owner.new_music_name)
 	
 	update_dead_enemies()

@@ -123,6 +123,7 @@ obelisk_position = Vector2(2005, 197)
 visible = false
 layout_mode = 2
 script = ExtResource("5_64x8n")
+travel_scene = "Dorf"
 
 [node name="Wald" type="Button" parent="WorldScreen/Panel/VBoxContainer"]
 visible = false
@@ -153,4 +154,5 @@ text = "Exit"
 [connection signal="pressed" from="PauseScreen/Panel/VBoxContainer/WorldButton" to="." method="_on_world_button_pressed"]
 [connection signal="pressed" from="PauseScreen/Panel/VBoxContainer/ExitButton" to="PauseScreen/Panel/VBoxContainer/ExitButton" method="_on_pressed"]
 [connection signal="pressed" from="WorldScreen/Panel/VBoxContainer/Lichtung" to="WorldScreen/Panel/VBoxContainer/Lichtung" method="_on_pressed"]
+[connection signal="pressed" from="WorldScreen/Panel/VBoxContainer/Dorf" to="WorldScreen/Panel/VBoxContainer/Dorf" method="_on_pressed"]
 [connection signal="pressed" from="WorldScreen/Panel/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://blep30c4wlgxg" path="res://art/Monsters_Creatures_Fantasy/Skeleton/Idle.png" id="5_rk5ga"]
 [ext_resource type="Texture2D" uid="uid://bi8uy6hbqvd07" path="res://art/Monsters_Creatures_Fantasy/Skeleton/Shield.png" id="6_vjvy5"]
 [ext_resource type="Texture2D" uid="uid://dqtjy6v6tqpsu" path="res://art/Monsters_Creatures_Fantasy/Skeleton/Walk.png" id="7_tnmnf"]
-[ext_resource type="Script" path="res://entities/Damageable.gd" id="8_sjqb2"]
+[ext_resource type="Script" path="res://entities/damageable.gd" id="8_v5fib"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/Idle.gd" id="9_5ohyy"]
-[ext_resource type="Script" path="res://entities/FiniteStateMachine.gd" id="9_bthfb"]
+[ext_resource type="Script" path="res://entities/finite_state_machine.gd" id="9_bthfb"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/Walk.gd" id="10_vfdqi"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/Follow.gd" id="11_pofua"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/Attack.gd" id="12_f6xsg"]
@@ -17,8 +17,8 @@
 [ext_resource type="Script" path="res://entities/enemy/skelleton/Hit.gd" id="14_3f543"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/Dead.gd" id="15_pdhta"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/Sword.gd" id="16_0jkqc"]
-[ext_resource type="Script" path="res://entities/enemy/FallDetection.gd" id="17_vjxs3"]
 [ext_resource type="Script" path="res://entities/Character/Swordmen/FacingCollisionShape2D.gd" id="18_fi3ql"]
+[ext_resource type="Script" path="res://entities/enemy/fall_detection.gd" id="18_im0rn"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/PlayerDetection.gd" id="19_6jj7x"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/ShieldDetection.gd" id="20_3ls3b"]
 [ext_resource type="Script" path="res://entities/enemy/skelleton/HealthLabel.gd" id="21_up2d7"]
@@ -428,8 +428,7 @@ libraries = {
 }
 
 [node name="Damageable" type="Node" parent="."]
-script = ExtResource("8_sjqb2")
-health = 30.0
+script = ExtResource("8_v5fib")
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("9_bthfb")
@@ -497,7 +496,7 @@ polygon = PackedVector2Array(50, -5, 53, -6, 54, -9, 53, -15, 51, -19, 47, -21, 
 [node name="FallDetection" type="Area2D" parent="." node_paths=PackedStringArray("character", "facing_shape")]
 visible = false
 collision_layer = 0
-script = ExtResource("17_vjxs3")
+script = ExtResource("18_im0rn")
 character = NodePath("..")
 facing_shape = NodePath("FacingCollisionShape")
 

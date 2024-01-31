@@ -5,9 +5,11 @@
 [node name="SceneManager" type="Node2D"]
 script = ExtResource("1_n4lgt")
 scenes = {
-"AlchemistHouse": &"res://objects/buildings/alchemist house/alchemist_house.tscn",
-"Dorf": &"res://Level/Dorf/dorf.tscn",
+"AlchemistCave": &"res://Level/AlchemistCave/alchemist_cave.tscn",
+"AlchemistHouse": &"res://objects/buildings/alchemist house/alchemist_house_interrior.tscn",
+"Dorf": &"res://Level/dorf/dorf.tscn",
 "Lichtung1": &"res://Level/Lichtung/lichtung1.tscn",
 "Lichtung2": &"res://Level/Lichtung2/lichtung2.tscn",
+"Lichtung3": &"res://Level/Lichtung3/lichtung3.tscn",
 "StartMenu": &"res://UI/Menu/start_menu.tscn"
 }

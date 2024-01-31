@@ -7,6 +7,7 @@ class_name PlayerAirState
 @export var double_jump_animation : String = "double_jump"
 @export var landing_animation : String = "landing"
 
+@onready var shoe : Area2D = $"../../Shoe"
 @onready var attack_air_sound1 : AudioStreamPlayer = $"../../SoundEffects/Sword/SwipeAirSound1"
 @onready var double_jump_sound1 : AudioStreamPlayer = $"../../SoundEffects/Jump/DoubleJumpSound"
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +21,7 @@ func ready():
 	SignalBus.call_deferred("connect", "wallslide_end", on_signal_bus_wallslide_end)
 
 func enter():
+	shoe.monitoring = false
 	has_double_jumped = false
 	if(has_air_attacked):
 		animation_player.play("jump_middle")
