@@ -43,6 +43,7 @@ func update_player_properties():
 	player.position = SceneLogic.player_next_init_position
 	player.damageable.health = SceneLogic.player_health
 	player.damageable.max_health = SceneLogic.player_max_health
+	SceneLogic.player = player
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -52,7 +53,7 @@ func on_health_changed(node : Node, amount_changed : int):
 func on_spawn_enemy(spawner : Node, enemy : Node, amount : int):
 	print(amount)
 		#spawn_matrix[return_index(spawner, spawners)].append(enemy)
-	get_parent().add_child(enemy)
+	add_child(enemy)
 
 func freeze_engine() -> void:
 	Engine.time_scale = freeze_slow

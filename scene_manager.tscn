@@ -6,7 +6,7 @@
 script = ExtResource("1_n4lgt")
 scenes = {
 "AlchemistCave": &"res://Level/AlchemistCave/alchemist_cave.tscn",
-"AlchemistHouse": &"res://objects/buildings/alchemist house/alchemist_house_interrior.tscn",
+"AlchemistHouse": &"res://Level/buildings/AlchemistHouse/alchemist_house_interrior.tscn",
 "Dorf": &"res://Level/dorf/dorf.tscn",
 "Lichtung1": &"res://Level/Lichtung/lichtung1.tscn",
 "Lichtung2": &"res://Level/Lichtung2/lichtung2.tscn",

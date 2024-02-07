@@ -41,13 +41,12 @@ func state_process(delta):
 	owner.direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		
 func state_input(event : InputEvent):
-	if character.is_on_floor():
+	if character.is_on_floor():	
 		if(event.is_action_pressed("jump")):
 			jump()
 		elif(event.is_action_pressed("attack")):
 			attack()
 		elif(event.is_action_pressed("interact")):
-			print("interact")
 			interact()
 		elif(event.is_action_pressed("move_down")):
 			character.position.y += 1

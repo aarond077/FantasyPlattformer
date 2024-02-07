@@ -11,5 +11,5 @@ func _process(delta):
 
 
 func _on_pressed():
-	SignalBus.call_deferred("emit_signal", "load_game")
-	SceneManager.switch_scene("Lichtung1")
+	SignalBus.emit_signal("load_game")
+	SceneManager.switch_scene(SceneLogic.save_scene_name)

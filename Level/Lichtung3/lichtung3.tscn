@@ -223,6 +223,7 @@ limit_right = 1388
 position = Vector2(1047, 157)
 
 [node name="SmallHive" parent="lichtung3" instance=ExtResource("21_mcxpf")]
+z_index = 1
 position = Vector2(434, 92)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

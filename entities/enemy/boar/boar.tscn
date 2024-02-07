@@ -420,7 +420,7 @@ damage = 20.0
 knockback_speed = 200.0
 
 [node name="FacingCollision" type="CollisionShape2D" parent="Snout"]
-position = Vector2(16, 5)
+position = Vector2(-17, 5)
 shape = SubResource("CapsuleShape2D_3wpyw")
 script = ExtResource("15_c53pt")
 facing_left_position = Vector2(-18, 6)

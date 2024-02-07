@@ -135,7 +135,6 @@ size = Vector2(71, 111.5)
 
 [node name="obeslisk" type="Node2D"]
 script = ExtResource("1_cr5y1")
-szene_name = "Lichtung"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_67277")

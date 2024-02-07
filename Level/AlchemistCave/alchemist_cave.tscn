@@ -74,7 +74,7 @@ limit_left = 12
 motion_mirroring = Vector2(480, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="AlchemistCave/CanvasLayer/ParallaxBackground/ParallaxLayer"]
-position = Vector2(492, 36)
+position = Vector2(492, 39)
 scale = Vector2(2.0375, 1.97059)
 texture = ExtResource("6_e4v1w")
 

@@ -55,5 +55,4 @@ func _physics_process(delta):
 func on_damageable_is_dead():
 	if not state_machine.return_current_state().get_state_name() == "Dead":
 		emit_signal("spawn_limit_changed")
-		print("dead bee")
 		state_machine.change_state("Dead")

@@ -21,8 +21,12 @@ func state_process(delta):
 	character.direction.x = player.position.x - character.position.x #- 140
 	character.velocity.x = character.direction.normalized().x * speed
 	
-	if owner.direction.length() > 160 or player.get_health() <= 0: 
+	if can_transition or player.get_health() <= 0: 
 		call_deferred("emit_signal","interrupt_state", "Idle")
 
 func get_state_name():
 	return "Attack"
+
+
+func _on_player_detection_body_exited(body):
+	can_transition = true

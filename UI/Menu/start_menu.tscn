@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://coawkcgr7nua4"]
 
-[ext_resource type="Script" path="res://UI/Menu/ResumeButton.gd" id="1_g46sa"]
+[ext_resource type="Script" path="res://UI/Menu/resume_button.gd" id="1_of8fk"]
 [ext_resource type="Script" path="res://UI/Menu/new_game_button.gd" id="2_hah12"]
 
 [node name="StartMenu" type="Control"]
@@ -40,7 +40,7 @@ text = "= GAME MENU ="
 [node name="ResumeButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
-script = ExtResource("1_g46sa")
+script = ExtResource("1_of8fk")
 
 [node name="NewGameButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2

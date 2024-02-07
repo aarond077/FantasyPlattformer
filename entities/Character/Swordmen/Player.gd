@@ -35,19 +35,20 @@ func _process(delta):
 	camera_node.set_deferred("position", position)
 
 func _physics_process(delta):
-	# Add the gravity.
-#	elif state_machine.current_state != hit_state:
-#		velocity.x = move_toward(velocity.x, 0, speed)
-	
+#	# Add the gravity.
+##	elif state_machine.current_state != hit_state:
+##		velocity.x = move_toward(velocity.x, 0, speed)
+#
 	if direction.x != 0 \
 		and state_machine.current_state.get_state_name() != "Dash" \
-		
+
 		and state_machine.current_state.get_state_name() != "Stomp" \
-		
+
 		and state_machine.current_state.get_state_name() != "AirAttack" \
-	
+
 		and state_machine.current_state.get_state_name() != "HitState":			
 		velocity.x = direction.x * speed
+		update_facing_direction()
 	elif state_machine.current_state.get_state_name() != "HitState" \
 		and state_machine.current_state.get_state_name() != "Dash":
 		velocity.x = move_toward(velocity.x, 0, speed)
@@ -55,8 +56,6 @@ func _physics_process(delta):
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		move_and_slide()
-	if state_machine.current_state.get_state_name() != "HitState" and direction.x != 0:
-		update_facing_direction()
 	
 
 func get_health():

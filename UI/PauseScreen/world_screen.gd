@@ -16,5 +16,4 @@ func on_active_obelisk(scene_name : String, position : Vector2):
 		if child.name == scene_name:
 			child.text = scene_name
 			child.show()
-			SceneLogic.travel_obelisks.append(scene_name)#add obelisk to array
 			#child.obelisk_position = obelisk_position

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://e6pfy0dqby2s"]
+[gd_scene load_steps=15 format=3 uid="uid://e6pfy0dqby2s"]
 
 [ext_resource type="Script" path="res://Level/game_manager.gd" id="1_4njh6"]
 [ext_resource type="Texture2D" uid="uid://dhk8cqii3i738" path="res://art/Legacy-Fantasy - High Forest 2.3/Assets/Interior-01.png" id="1_jkfvj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Level/scene_change_detection.gd" id="5_1gi26"]
 [ext_resource type="PackedScene" uid="uid://ckly233q77osi" path="res://UI/PauseScreen/pause_screen.tscn" id="5_6ia8e"]
 [ext_resource type="PackedScene" uid="uid://b6vly44ayuua0" path="res://objects/InteractableObject/interactable_door.tscn" id="7_j3nm6"]
+[ext_resource type="PackedScene" uid="uid://cna2hs215edqr" path="res://entities/npc/alchemist/alchemist.tscn" id="10_vxy27"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iv1wa"]
 texture = ExtResource("1_jkfvj")
@@ -1968,5 +1969,8 @@ process_mode = 3
 visible = false
 offset_left = 1.0
 offset_right = 1.0
+
+[node name="Alchemist" parent="." instance=ExtResource("10_vxy27")]
+position = Vector2(334, 69)
 
 [connection signal="body_entered" from="AlchemistHouseInterrior/AlchemistCaveDetection" to="AlchemistHouseInterrior/AlchemistCaveDetection" method="_on_body_entered"]
